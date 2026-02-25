@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kitchly Giveaway - $100 Visa Gift Card Contest
 
-## Getting Started
+Mobile-first React landing page for the Kitchly $100 Visa gift card giveaway contest. Built with Next.js, Tailwind CSS, and Resend for email notifications.
 
-First, run the development server:
+## Quick Start
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy `.env.example` to `.env.local` and fill in your values:
 
-## Learn More
+```bash
+cp .env.example .env.local
+```
 
-To learn more about Next.js, take a look at the following resources:
+| Variable | Description | Required |
+|---|---|---|
+| `RESEND_API_KEY` | API key from [resend.com](https://resend.com) | Yes |
+| `EMAIL_TO` | Recipient email for entries (default: contact@risodevelopment.com) | No |
+| `EMAIL_FROM` | Sender email address (default: onboarding@resend.dev) | No |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Setting up Resend
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Sign up at [resend.com](https://resend.com) (free tier: 100 emails/day)
+2. Create an API key in the dashboard
+3. Add it to `.env.local` as `RESEND_API_KEY`
+4. (Optional) Verify a custom domain to send from your own address
 
-## Deploy on Vercel
+## Configuration
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Edit `src/config.ts` to update:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Contest deadline** and **winner announcement date**
+- **App Store URL**
+- **Instagram handle** and URL
+- **Email recipient**
+
+## Adding the Logo
+
+1. Place your logo file in `public/` (e.g., `public/kitchly-logo.png`)
+2. In `src/app/page.tsx`, uncomment the `<img>` tag in the Header section and remove the placeholder `<div>`
+
+## Deploy to Vercel
+
+1. Push this repo to GitHub
+2. Go to [vercel.com/new](https://vercel.com/new) and import the repository
+3. Add environment variables in Vercel project settings:
+   - `RESEND_API_KEY` — your Resend API key
+   - `EMAIL_TO` — recipient email
+   - `EMAIL_FROM` — sender email (use your verified Resend domain)
+4. Deploy
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── api/submit-entry/
+│   │   └── route.ts        # Serverless API for form submission + email
+│   ├── globals.css          # Tailwind + custom CSS variables
+│   ├── layout.tsx           # Root layout with metadata
+│   └── page.tsx             # Main giveaway landing page
+└── config.ts                # Contest configuration (dates, links)
+```
+
+## Tech Stack
+
+- **Next.js 16** (App Router)
+- **Tailwind CSS 4**
+- **Resend** for transactional email
+- **TypeScript**
+# KitchlyGiveaway
