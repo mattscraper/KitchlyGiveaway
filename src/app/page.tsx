@@ -102,7 +102,7 @@ export default function Home() {
             />
           </Step>
           <Step num={3}>
-            <StepText title="Scan 2 barcodes" desc="Any items from your kitchen" />
+            <StepText title="Scan 1 barcode" desc="Any item from your kitchen" />
           </Step>
        
         </ol>
