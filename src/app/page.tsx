@@ -61,9 +61,9 @@ export default function Home() {
           <Image
             src="/assets/logo.png"
             alt="Kitchly"
-            width={64}
-            height={64}
-            className="rounded-2xl"
+            width={88}
+            height={88}
+            className="rounded-[22px]"
             priority
           />
           <p className="mt-3 text-[13px] font-medium text-text-secondary">
@@ -82,8 +82,8 @@ export default function Home() {
             Visa Gift Card
           </h1>
           <p className="mt-3 text-[15px] leading-relaxed text-text-secondary">
-            Download Kitchly, try it out, and
-            <br className="sm:hidden" /> you could win.
+            Complete 3 simple steps and enter
+            <br className="sm:hidden" /> for a chance to win.
           </p>
         </div>
 
@@ -129,7 +129,7 @@ export default function Home() {
         </a>
 
         {/* ---- Divider ---- */}
-        <div className="my-8 h-px bg-border" />
+        <div className="my-9 h-px bg-border" />
 
         {/* ---- Entry Form ---- */}
         <section id="entry">
@@ -144,11 +144,12 @@ export default function Home() {
                 You&apos;re all set!
               </h2>
               <p className="mx-auto mt-2 max-w-[300px] text-[14px] leading-relaxed text-text-secondary">
-                If you&apos;ve completed the download, free trial, and barcode
-                scans — you&apos;re automatically entered.
+                If you&apos;ve already completed the steps above, you&apos;re
+                automatically entered.
               </p>
               <p className="mx-auto mt-1.5 max-w-[300px] text-[14px] leading-relaxed text-text-secondary">
-                If not, you&apos;ll be entered as soon as you do.
+                Haven&apos;t finished yet? No worries — your entry will count
+                as soon as all steps are done.
               </p>
               <p className="mt-5 text-[12px] font-medium text-text-muted">
                 Winner announced {CONTEST_CONFIG.winnerAnnouncementDate}
@@ -156,9 +157,13 @@ export default function Home() {
             </div>
           ) : (
             <>
-              <h2 className="mb-5 text-center text-lg font-bold text-foreground">
-                When Finished
+              <h2 className="text-center text-lg font-bold text-foreground">
+                Almost done
               </h2>
+              <p className="mx-auto mt-1.5 mb-5 max-w-[320px] text-center text-[13px] leading-relaxed text-text-secondary">
+                Submit your info below. Your entry only counts once
+                you&apos;ve completed all 3 steps above.
+              </p>
 
               <form onSubmit={handleSubmit} noValidate>
                 {error && (
@@ -216,12 +221,6 @@ export default function Home() {
                 >
                   {isSubmitting ? "Submitting..." : "Submit Entry"}
                 </button>
-
-                <p className="mt-3.5 text-center text-[11px] leading-relaxed text-text-muted">
-                  We&apos;ll verify your download, trial, and barcode scans.
-                  <br />
-                  Complete all steps to be eligible.
-                </p>
               </form>
             </>
           )}
