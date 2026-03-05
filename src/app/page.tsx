@@ -87,7 +87,7 @@ export default function Home() {
         </div>
 
         {/* ---- Steps ---- */}
-        <div className="mt-9 space-y-2.5">
+        <div className="mt-9 space-y-3">
           <p className="px-1 text-[11px] font-semibold tracking-[0.1em] text-text-muted uppercase">
             How to enter
           </p>
@@ -96,40 +96,30 @@ export default function Home() {
             href={CONTEST_CONFIG.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-3.5 rounded-2xl px-4 py-3.5 transition-colors hover:bg-card-bg active:bg-card-bg"
+            className="group flex h-[60px] items-center gap-4 rounded-2xl bg-gradient-to-r from-[#f09433] via-[#dc2743] to-[#bc1888] px-5 shadow-[0_3px_16px_rgba(220,39,67,0.25)] transition-all hover:shadow-[0_5px_24px_rgba(220,39,67,0.35)] hover:brightness-105 active:scale-[0.98]"
           >
-            <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#f09433] via-[#dc2743] to-[#bc1888]">
-              <InstagramIcon />
+            <InstagramIcon />
+            <span className="flex-1 text-[15px] font-semibold text-white">
+              Follow @{CONTEST_CONFIG.instagramHandle}
             </span>
-            <span className="min-w-0 flex-1">
-              <span className="block text-[14px] font-semibold leading-tight text-foreground">
-                Follow @{CONTEST_CONFIG.instagramHandle}
-              </span>
-              <span className="block text-[12px] leading-snug text-text-secondary">
-                Follow us on Instagram
-              </span>
-            </span>
-            <ArrowIcon />
+            <svg className="h-4 w-4 text-white/70 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
           </a>
 
           <a
             href={CONTEST_CONFIG.appStoreUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-3.5 rounded-2xl px-4 py-3.5 transition-colors hover:bg-card-bg active:bg-card-bg"
+            className="group flex h-[60px] items-center gap-4 rounded-2xl bg-black px-5 shadow-[0_3px_16px_rgba(0,0,0,0.15)] transition-all hover:shadow-[0_5px_24px_rgba(0,0,0,0.25)] hover:bg-[#1a1a1a] active:scale-[0.98]"
           >
-            <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl bg-black">
-              <AppStoreIcon />
+            <AppStoreIcon />
+            <span className="flex-1 text-[15px] font-semibold text-white">
+              Download on App Store
             </span>
-            <span className="min-w-0 flex-1">
-              <span className="block text-[14px] font-semibold leading-tight text-foreground">
-                Download Kitchly
-              </span>
-              <span className="block text-[12px] leading-snug text-text-secondary">
-                Free on the App Store
-              </span>
-            </span>
-            <ArrowIcon />
+            <svg className="h-4 w-4 text-white/50 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
           </a>
         </div>
 
@@ -253,16 +243,3 @@ function AppStoreIcon() {
   );
 }
 
-function ArrowIcon() {
-  return (
-    <svg
-      className="h-4 w-4 flex-shrink-0 text-text-muted transition-transform group-hover:translate-x-0.5"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-    </svg>
-  );
-}
