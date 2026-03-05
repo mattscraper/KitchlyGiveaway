@@ -5,30 +5,30 @@ import Image from "next/image";
 import { CONTEST_CONFIG } from "@/config";
 
 export default function Home() {
-  const [email, setEmail] = useState("");
   const [instagram, setInstagram] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [emailError, setEmailError] = useState<string | null>(null);
+  const [fieldError, setFieldError] = useState<string | null>(null);
 
-  function validateEmail(value: string): boolean {
-    if (!value.trim()) {
-      setEmailError("Email is required.");
+  function validateHandle(value: string): boolean {
+    const trimmed = value.trim().replace(/^@/, "");
+    if (!trimmed) {
+      setFieldError("Instagram handle is required.");
       return false;
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())) {
-      setEmailError("Please enter a valid email address.");
+    if (!/^[a-zA-Z0-9._]{1,30}$/.test(trimmed)) {
+      setFieldError("Please enter a valid Instagram handle.");
       return false;
     }
-    setEmailError(null);
+    setFieldError(null);
     return true;
   }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError(null);
-    if (!validateEmail(email)) return;
+    if (!validateHandle(instagram)) return;
     setIsSubmitting(true);
 
     try {
@@ -36,8 +36,7 @@ export default function Home() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: email.trim(),
-          instagram: instagram.trim() || null,
+          instagram: instagram.trim().replace(/^@/, ""),
         }),
       });
       const data = await response.json();
@@ -167,8 +166,8 @@ export default function Home() {
                 Almost done
               </h2>
               <p className="mx-auto mt-1.5 mb-5 max-w-[320px] text-center text-[13px] leading-relaxed text-text-secondary">
-                Submit your info below. Your entry only counts once
-                you&apos;ve completed both steps above.
+                Enter your Instagram handle so we know who you are.
+                Your entry only counts once you&apos;ve completed both steps.
               </p>
 
               <form onSubmit={handleSubmit} noValidate>
@@ -178,52 +177,36 @@ export default function Home() {
                   </p>
                 )}
 
-                <fieldset disabled={isSubmitting} className="space-y-3">
-                  <div>
-                    <label htmlFor="email" className="mb-1.5 block text-[13px] font-medium text-foreground">
-                      Email used for Kitchly <span className="text-error">*</span>
-                    </label>
-                    <input
-                      id="email"
-                      type="email"
-                      required
-                      value={email}
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                        if (emailError) validateEmail(e.target.value);
-                      }}
-                      onBlur={() => { if (email) validateEmail(email); }}
-                      placeholder="you@email.com"
-                      className="h-12 w-full rounded-xl border border-border bg-card-bg px-4 text-foreground outline-none transition-all placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/15"
-                      aria-describedby={emailError ? "email-error" : undefined}
-                      aria-invalid={emailError ? "true" : undefined}
-                      suppressHydrationWarning
-                    />
-                    {emailError && (
-                      <p id="email-error" className="mt-1.5 text-[12px] text-error" role="alert">{emailError}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label htmlFor="instagram" className="mb-1.5 block text-[13px] font-medium text-foreground">
-                      Instagram handle <span className="font-normal text-text-muted">(optional)</span>
-                    </label>
-                    <input
-                      id="instagram"
-                      type="text"
-                      value={instagram}
-                      onChange={(e) => setInstagram(e.target.value)}
-                      placeholder="@yourusername"
-                      className="h-12 w-full rounded-xl border border-border bg-card-bg px-4 text-foreground outline-none transition-all placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/15"
-                      suppressHydrationWarning
-                    />
-                  </div>
-                </fieldset>
+                <div>
+                  <label htmlFor="instagram" className="mb-1.5 block text-[13px] font-medium text-foreground">
+                    Your Instagram handle <span className="text-error">*</span>
+                  </label>
+                  <input
+                    id="instagram"
+                    type="text"
+                    required
+                    value={instagram}
+                    onChange={(e) => {
+                      setInstagram(e.target.value);
+                      if (fieldError) validateHandle(e.target.value);
+                    }}
+                    onBlur={() => { if (instagram) validateHandle(instagram); }}
+                    placeholder="@yourusername"
+                    disabled={isSubmitting}
+                    className="h-12 w-full rounded-xl border border-border bg-card-bg px-4 text-foreground outline-none transition-all placeholder:text-text-muted focus:border-primary focus:ring-2 focus:ring-primary/15 disabled:opacity-50"
+                    aria-describedby={fieldError ? "ig-error" : undefined}
+                    aria-invalid={fieldError ? "true" : undefined}
+                    suppressHydrationWarning
+                  />
+                  {fieldError && (
+                    <p id="ig-error" className="mt-1.5 text-[12px] text-error" role="alert">{fieldError}</p>
+                  )}
+                </div>
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="mt-5 flex h-[52px] w-full items-center justify-center rounded-2xl bg-primary text-[15px] font-semibold text-white shadow-[0_2px_12px_rgba(13,150,104,0.3)] transition-all hover:brightness-110 active:scale-[0.98] disabled:opacity-50 disabled:shadow-none"
+                  className="mt-4 flex h-[52px] w-full items-center justify-center rounded-2xl bg-primary text-[15px] font-semibold text-white shadow-[0_2px_12px_rgba(13,150,104,0.3)] transition-all hover:brightness-110 active:scale-[0.98] disabled:opacity-50 disabled:shadow-none"
                 >
                   {isSubmitting ? "Submitting..." : "Submit Entry"}
                 </button>

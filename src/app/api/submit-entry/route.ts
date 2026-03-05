@@ -9,10 +9,6 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-function isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
 function sanitize(str: string): string {
   return str.replace(/[<>&"']/g, "");
 }
@@ -20,13 +16,14 @@ function sanitize(str: string): string {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const email = typeof body.email === "string" ? body.email.trim() : "";
     const instagram =
-      typeof body.instagram === "string" ? sanitize(body.instagram.trim()) : "";
+      typeof body.instagram === "string"
+        ? sanitize(body.instagram.trim().replace(/^@/, ""))
+        : "";
 
-    if (!email || !isValidEmail(email)) {
+    if (!instagram || !/^[a-zA-Z0-9._]{1,30}$/.test(instagram)) {
       return NextResponse.json(
-        { success: false, error: "Please provide a valid email address." },
+        { success: false, error: "Please provide a valid Instagram handle." },
         { status: 400 }
       );
     }
@@ -44,17 +41,16 @@ export async function POST(request: NextRequest) {
     await transporter.sendMail({
       from: process.env.GMAIL_USER,
       to: emailTo,
-      subject: `Kitchly Giveaway Entry - ${email}`,
+      subject: `Kitchly Giveaway Entry - @${instagram}`,
       text: [
         "New giveaway entry:",
         "",
-        `Email: ${email}`,
-        `Instagram: ${instagram || "Not provided"}`,
+        `Instagram: @${instagram}`,
         `Time: ${new Date().toISOString()}`,
       ].join("\n"),
     });
 
-    console.log("Entry email sent for:", email);
+    console.log("Entry email sent for: @" + instagram);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Submit entry error:", error);
