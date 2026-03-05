@@ -57,21 +57,26 @@ export default function Home() {
       <div className="w-full max-w-[400px]">
         {/* ---- Header + Hero ---- */}
         <div className="flex flex-col items-center text-center">
-          <Image
-            src="/assets/logo.png"
-            alt="Kitchly"
-            width={72}
-            height={72}
-            className="rounded-[18px]"
-            priority
-          />
-          <p className="mt-1.5 text-[12px] font-medium text-text-muted">
+          <div className="rounded-[22px] bg-gradient-to-br from-[#0d9668]/10 to-[#34d399]/10 p-[3px]">
+            <Image
+              src="/assets/logo.png"
+              alt="Kitchly"
+              width={84}
+              height={84}
+              className="rounded-[20px]"
+              priority
+            />
+          </div>
+          <p className="mt-2 text-[12px] font-medium text-text-muted">
             @{CONTEST_CONFIG.instagramHandle}
           </p>
-          <p className="mt-4 text-[12px] font-semibold tracking-wide text-primary uppercase">
-            Giveaway
-          </p>
-          <h1 className="mt-0.5 text-[28px] font-extrabold leading-[1.1] tracking-tight text-foreground sm:text-[34px]">
+          <div className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+            <span className="text-[11px] font-semibold tracking-wide text-primary uppercase">
+              Giveaway
+            </span>
+          </div>
+          <h1 className="mt-2 text-[28px] font-extrabold leading-[1.1] tracking-tight text-foreground sm:text-[34px]">
             Win a $100 Visa Gift Card
           </h1>
           <p className="mt-1.5 text-[13px] text-text-secondary">
@@ -109,7 +114,11 @@ export default function Home() {
         </div>
 
         {/* ---- Divider ---- */}
-        <div className="my-5 h-px bg-border" />
+        <div className="my-5 flex items-center gap-3">
+          <div className="h-px flex-1 bg-border" />
+          <span className="text-[10px] font-semibold tracking-widest text-text-muted uppercase">Then</span>
+          <div className="h-px flex-1 bg-border" />
+        </div>
 
         {/* ---- Entry Form ---- */}
         <section id="entry">
